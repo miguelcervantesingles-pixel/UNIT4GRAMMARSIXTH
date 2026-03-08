@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🌟 MaterialMaster — English 6th Grade!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --red:    #E53935;
+  --blue:   #1565C0;
+  --yellow: #FFD600;
+  --green:  #00C853;
+  --purple: #7B1FA2;
+  --dark:   #0D1B4B;
+  --mid:    #1A237E;
+  --card:   #3949AB;
+  --light:  #E8EAF6;
+  --shadow: 0 8px 32px rgba(13,27,75,0.35);
+  --white:  #FFFFFF;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:#0D1B4B;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+.bg-canvas{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.ball{position:absolute;border-radius:50%;opacity:.18;animation:ballFloat linear infinite;}
+@keyframes ballFloat{0%{transform:translateY(110vh) rotate(0deg);}100%{transform:translateY(-20vh) rotate(720deg);}}
+.star{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:twinkle ease-in-out infinite alternate;}
+@keyframes twinkle{0%{opacity:.1;}100%{opacity:.8;}}
+
+#app{position:relative;z-index:1;min-height:100vh;}
+
+.screen{display:none;min-height:100vh;padding:14px 12px 32px;flex-direction:column;align-items:center;gap:10px;}
+.screen.active{display:flex;}
+
+/* HEADER */
+.gh{text-align:center;width:100%;max-width:820px;padding:6px 0 2px;}
+.gh-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(28px,8vw,56px);
+  color:var(--yellow);
+  text-shadow:3px 3px 0 var(--red),6px 6px 0 rgba(0,0,0,.4);
+  letter-spacing:3px;line-height:1.1;
+}
+.gh-sub{font-size:clamp(12px,3vw,17px);color:#90CAF9;font-weight:700;margin-top:3px;}
+.badge{
+  display:inline-block;
+  background:var(--yellow);color:var(--dark);
+  font-family:'Bangers',cursive;font-size:clamp(11px,2.5vw,16px);
+  padding:5px 18px;border-radius:20px;
+  box-shadow:0 4px 0 #B8960C;letter-spacing:1px;margin:3px;
+}
+
+.srow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:2px 0;}
+.schip{
+  background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.2);
+  border-radius:12px;padding:5px 13px;
+  color:#fff;font-size:clamp(11px,2.5vw,14px);font-weight:800;
+}
+
+/* WELCOME */
+#sc-welcome{justify-content:center;text-align:center;}
+.wcard{
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(232,234,246,.98));
+  border-radius:24px;padding:clamp(18px,5vw,38px);
+  box-shadow:var(--shadow);border:4px solid var(--yellow);
+  max-width:520px;width:100%;
+}
+.wcard h2{font-family:'Bangers',cursive;font-size:clamp(18px,5vw,28px);color:var(--dark);letter-spacing:2px;margin-bottom:10px;}
+.rules{list-style:none;text-align:left;padding:0;}
+.rules li{padding:7px 0;font-size:clamp(12px,3vw,15px);color:var(--dark);border-bottom:1px solid #E8EAF6;display:flex;align-items:center;gap:8px;}
+.pinput{
+  width:100%;padding:13px 16px;border-radius:12px;
+  border:3px solid var(--blue);font-family:'Nunito',sans-serif;
+  font-size:clamp(14px,3.5vw,18px);font-weight:800;
+  color:var(--dark);text-align:center;outline:none;margin:10px 0;
+  transition:border-color .2s;
+}
+.pinput:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,214,0,.25);}
+
+/* BUTTONS */
+.btn{
+  display:inline-block;font-family:'Bangers',cursive;
+  font-size:clamp(14px,3.5vw,20px);letter-spacing:2px;
+  padding:clamp(10px,3vw,15px) clamp(20px,6vw,36px);
+  border-radius:14px;border:none;cursor:pointer;
+  transition:all .15s;text-decoration:none;
+}
+.btn:active{transform:scale(.95);}
+.btn-y{background:var(--yellow);color:var(--dark);box-shadow:0 6px 0 #B8960C;}
+.btn-y:hover{transform:translateY(-2px);box-shadow:0 9px 0 #B8960C;}
+.btn-g{background:var(--green);color:#fff;box-shadow:0 6px 0 #007020;}
+.btn-r{background:var(--red);color:#fff;box-shadow:0 6px 0 #8B0000;}
+.btn-sm{font-size:clamp(11px,2.5vw,14px);padding:7px 18px;border-radius:10px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;transition:all .15s;}
+
+/* ══ PHASE 0: SPELLING ══ */
+#sc-spell{gap:8px;}
+.spell-wrap{width:100%;max-width:640px;}
+.spell-card{
+  background:rgba(255,255,255,.97);border-radius:22px;
+  padding:clamp(16px,4vw,28px);box-shadow:var(--shadow);
+  border:4px solid var(--yellow);text-align:center;
+}
+.spell-emoji{font-size:clamp(70px,20vw,110px);display:block;margin-bottom:6px;animation:float 2.5s ease-in-out infinite;}
+.spell-hint{font-size:clamp(12px,3vw,16px);color:#555;font-weight:700;margin-bottom:14px;}
+.letter-boxes{display:flex;gap:clamp(4px,1.5vw,8px);justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+.lbox{
+  width:clamp(32px,8vw,50px);height:clamp(38px,9vw,58px);
+  border:3px solid #9FA8DA;border-radius:10px;
+  background:#F3F4FF;
+  font-family:'Bangers',cursive;font-size:clamp(16px,4vw,26px);
+  color:var(--dark);display:flex;align-items:center;justify-content:center;
+  transition:all .3s;cursor:default;user-select:none;
+}
+.lbox.filled{border-color:var(--blue);background:#E3F2FD;}
+.lbox.correct{border-color:var(--green);background:#E8F5E9;animation:popIn .35s ease;}
+.lbox.wrong{border-color:var(--red);background:#FFEBEE;animation:shake .4s;}
+.lbox.reveal{border-color:var(--purple);background:#F3E5F5;}
+.letter-keyboard{display:flex;gap:clamp(4px,1.2vw,7px);flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+.lkey{
+  width:clamp(32px,7.5vw,46px);height:clamp(36px,8.5vw,50px);
+  background:linear-gradient(135deg,var(--blue),#0D47A1);color:#fff;
+  border:none;border-radius:9px;font-family:'Bangers',cursive;
+  font-size:clamp(14px,3.5vw,20px);cursor:pointer;
+  box-shadow:0 4px 0 #0D47A1;transition:all .15s;
+  display:flex;align-items:center;justify-content:center;
+}
+.lkey:hover{transform:translateY(-2px);box-shadow:0 6px 0 #0D47A1;}
+.lkey:active{transform:scale(.92);}
+.lkey.used{opacity:.35;pointer-events:none;background:#9E9E9E;box-shadow:0 3px 0 #616161;}
+.spell-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px;}
+.spell-progress{font-size:clamp(12px,2.8vw,16px);font-weight:800;color:var(--dark);margin-bottom:4px;}
+.spell-fbk{font-size:clamp(12px,2.8vw,15px);font-weight:700;min-height:24px;margin-top:6px;}
+.spell-fbk.ok{color:#1B5E20;}
+.spell-fbk.no{color:#B71C1C;}
+
+/* ══ MEMORAMA ══ */
+#sc-memo{gap:8px;}
+.mgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(72px,15vw,108px),1fr));
+  gap:clamp(5px,1.5vw,10px);
+  width:100%;max-width:820px;
+}
+.mc{aspect-ratio:1/1.3;perspective:700px;cursor:pointer;}
+.mc-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .4s;border-radius:14px;}
+.mc.flipped .mc-inner,.mc.matched .mc-inner{transform:rotateY(180deg);}
+.mc.matched .mc-front{background:linear-gradient(135deg,#00C853,#1B5E20)!important;border-color:var(--green)!important;}
+.mc-back,.mc-front{
+  position:absolute;width:100%;height:100%;
+  backface-visibility:hidden;border-radius:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:800;padding:5px;text-align:center;border:3px solid;
+  font-size:clamp(10px,2.5vw,14px);
+}
+.mc-back{background:linear-gradient(135deg,var(--card),#283593);border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7);}
+.mc-back .pbi{font-size:clamp(22px,5vw,34px);}
+.mc-front{transform:rotateY(180deg);border-color:rgba(255,255,255,.4);}
+.mc-front.en{background:linear-gradient(135deg,#1565C0,#0D47A1);color:#fff;}
+.mc-front.es{background:linear-gradient(135deg,#C62828,#7B0000);color:#fff;}
+.mc-front .mlang{font-size:clamp(7px,1.8vw,10px);opacity:.8;margin-bottom:3px;font-weight:600;}
+.mc-front .mico{font-size:clamp(16px,4vw,24px);margin-bottom:2px;}
+.memo-info{
+  background:rgba(255,255,255,.1);border-radius:12px;
+  padding:7px 16px;color:#fff;font-size:clamp(12px,2.5vw,15px);
+  font-weight:700;text-align:center;width:100%;max-width:820px;
+}
+
+/* ══ DRAG & DROP ══ */
+#sc-l2,#sc-l3{gap:8px;}
+.scard{
+  background:rgba(255,255,255,.98);border-radius:18px;
+  padding:clamp(12px,3vw,22px);
+  box-shadow:var(--shadow);border:3px solid rgba(13,27,75,.2);
+  width:100%;max-width:820px;overflow:hidden;
+}
+.scard h3{font-family:'Bangers',cursive;font-size:clamp(13px,3vw,18px);color:var(--dark);margin-bottom:8px;letter-spacing:1px;}
+.sem{font-size:clamp(38px,10vw,62px);text-align:center;display:block;margin:4px 0;animation:float 2.5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.shint{text-align:center;color:#555;font-size:clamp(12px,2.8vw,15px);font-weight:600;margin-bottom:8px;}
+.wbank{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#E8EAF6;border-radius:12px;min-height:46px;align-items:center;margin-bottom:8px;}
+.dropz{
+  min-height:50px;border:3px dashed #9FA8DA;border-radius:12px;
+  padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  background:#F3F4FF;margin:6px 0;width:100%;transition:all .2s;
+}
+.dropz.over{border-color:var(--yellow);background:#FFFDE7;box-shadow:0 0 0 3px rgba(255,214,0,.25);}
+.dropz.ok{border-color:var(--green);background:#E8F5E9;}
+.dropz.no{border-color:var(--red);background:#FFEBEE;animation:shake .4s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
+.wchip{
+  background:linear-gradient(135deg,var(--blue),#0D47A1);color:#fff;
+  padding:clamp(6px,1.8vw,10px) clamp(9px,2.2vw,15px);
+  border-radius:20px;font-size:clamp(10px,2.5vw,14px);font-weight:800;
+  cursor:grab;user-select:none;touch-action:none;
+  transition:all .2s;border:2px solid rgba(255,255,255,.2);
+  box-shadow:0 3px 6px rgba(0,0,0,.15);
+}
+.wchip:active{cursor:grabbing;transform:scale(1.12) rotate(3deg);}
+.wchip.ind{background:linear-gradient(135deg,#6A1B9A,#4A148C);}
+.wchip.drag{opacity:.4;}
+.btns-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;}
+.fbk{font-size:clamp(11px,2.5vw,14px);font-weight:700;margin-top:6px;padding:7px 11px;border-radius:9px;display:none;}
+.fbk.ok{background:#E8F5E9;color:#1B5E20;display:block;}
+.fbk.no{background:#FFEBEE;color:#B71C1C;display:block;}
+
+/* ══ TRANSLATE CARDS ══ */
+.tbox{
+  margin-top:12px;padding:14px;background:linear-gradient(135deg,#FFF8E1,#FFFDE7);
+  border-radius:14px;border:3px solid var(--yellow);display:none;
+}
+.tbox-label{font-family:'Bangers',cursive;font-size:clamp(14px,3.5vw,20px);color:var(--dark);letter-spacing:1px;display:block;margin-bottom:4px;}
+.tbox-sent{font-size:clamp(13px,3vw,16px);font-weight:800;color:var(--mid);margin-bottom:12px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border-left:4px solid var(--yellow);}
+.tcards{display:grid;grid-template-columns:1fr;gap:9px;}
+@media(min-width:480px){.tcards{grid-template-columns:1fr 1fr 1fr;}}
+.tcard{
+  background:#fff;border:3px solid #9FA8DA;border-radius:14px;
+  padding:clamp(10px,3vw,16px) clamp(8px,2.5vw,14px);
+  cursor:pointer;text-align:center;
+  font-size:clamp(11px,2.8vw,15px);font-weight:800;color:var(--dark);
+  transition:all .2s;box-shadow:0 4px 0 #C5CAE9;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  user-select:none;
+}
+.tcard:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 7px 0 #1565C0;}
+.tcard:active{transform:scale(.96);}
+.tcard.correct{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:var(--green);box-shadow:0 4px 0 #1B5E20;animation:popIn .35s ease;}
+.tcard.wrong{background:linear-gradient(135deg,#FFEBEE,#FFCDD2);border-color:var(--red);box-shadow:0 4px 0 #8B0000;animation:shake .35s;}
+.tcard.disabled{pointer-events:none;opacity:.55;}
+.tcard-ico{font-size:clamp(20px,5vw,28px);}
+.tcard-letter{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--mid);color:#fff;
+  font-family:'Bangers',cursive;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-bottom:2px;
+}
+@keyframes popIn{0%{transform:scale(.9);}60%{transform:scale(1.06);}100%{transform:scale(1);}}
+
+/* ══ CERTIFICATE ══ */
+#sc-cert{justify-content:center;gap:0;padding-bottom:40px;}
+.cert-wrap{
+  background:#fff;border-radius:24px;max-width:580px;width:100%;
+  box-shadow:0 16px 60px rgba(13,27,75,.45);
+  border:5px solid var(--yellow);overflow:hidden;
+}
+.cert-top{
+  background:linear-gradient(135deg,#0D1B4B 0%,#1A237E 50%,#283593 100%);
+  padding:20px 16px 14px;text-align:center;position:relative;
+}
+.cert-top::after{content:'';position:absolute;bottom:-12px;left:0;right:0;height:24px;background:#fff;border-radius:50% 50% 0 0/100% 100% 0 0;}
+.cert-poke{font-size:clamp(50px,14vw,72px);line-height:1;margin-bottom:4px;}
+.cert-title{font-family:'Bangers',cursive;font-size:clamp(13px,3.5vw,20px);color:var(--yellow);letter-spacing:3px;text-shadow:2px 2px 0 rgba(0,0,0,.3);}
+.cert-name{font-family:'Bangers',cursive;font-size:clamp(18px,5vw,30px);color:#fff;margin:4px 0 2px;word-break:break-all;letter-spacing:2px;}
+.cert-tagline{font-size:clamp(11px,2.5vw,14px);color:rgba(255,255,255,.75);font-weight:600;}
+.cert-body{padding:22px 16px 18px;}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:12px;}
+.sitem{background:#F8F9FF;border-radius:14px;padding:10px 6px;border:2px solid;
+  display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;}
+.sitem.s1{border-color:#7B1FA2;} .sitem.s2{border-color:#1565C0;} .sitem.s3{border-color:#C62828;} .sitem.s4{border-color:#6A1B9A;}
+.sico{font-size:clamp(18px,5vw,26px);}
+.snum{font-family:'Bangers',cursive;font-size:clamp(16px,4.5vw,26px);line-height:1;}
+.snum.grt{color:var(--green);} .snum.med{color:#FF8F00;} .snum.low{color:var(--red);}
+.slbl{font-size:clamp(9px,2.2vw,12px);font-weight:800;color:var(--dark);text-align:center;}
+.ssub{font-size:clamp(8px,1.8vw,10px);color:#888;text-align:center;}
+.sstar{font-size:10px;}
+.total-bar{
+  background:linear-gradient(135deg,var(--dark),#283593);
+  border-radius:14px;padding:12px 16px;display:flex;
+  align-items:center;justify-content:space-between;margin-bottom:12px;
+}
+.tl-left .tl-lbl{font-family:'Bangers',cursive;font-size:clamp(11px,2.8vw,16px);color:var(--yellow);letter-spacing:2px;display:block;margin-bottom:2px;}
+.tl-left .tl-sub{font-size:clamp(10px,2.2vw,13px);color:rgba(255,255,255,.65);font-weight:600;}
+.tl-num{font-family:'Bangers',cursive;font-size:clamp(30px,8vw,48px);color:var(--yellow);text-shadow:2px 2px 0 rgba(0,0,0,.25);line-height:1;}
+.pbox{
+  background:linear-gradient(135deg,#E8EAF6,#C5CAE9);
+  border:2px solid #9FA8DA;border-radius:14px;
+  padding:11px 14px;display:flex;align-items:center;gap:12px;margin-bottom:12px;
+}
+.pbox-emo{font-size:clamp(36px,10vw,52px);flex-shrink:0;}
+.pbox-name{font-family:'Bangers',cursive;font-size:clamp(14px,3.5vw,20px);color:var(--dark);letter-spacing:1px;}
+.pbox-msg{font-size:clamp(10px,2.3vw,13px);font-weight:700;color:#555;}
+.pbox-type{font-size:clamp(9px,2vw,11px);color:#888;font-weight:600;margin-top:2px;}
+.impbox{background:#FFFDE7;border:2px solid var(--yellow);border-radius:14px;padding:11px 14px;margin-bottom:14px;text-align:left;}
+.impbox h4{font-family:'Bangers',cursive;font-size:clamp(12px,3vw,17px);color:var(--dark);letter-spacing:1px;margin-bottom:7px;}
+.impitem{display:flex;align-items:flex-start;gap:7px;padding:3px 0;font-size:clamp(10px,2.3vw,13px);font-weight:700;color:#555;line-height:1.4;}
+.tipsbox{background:#E8F5E9;border:2px solid var(--green);border-radius:14px;padding:11px 14px;margin-bottom:14px;text-align:left;}
+.tipsbox h4{font-family:'Bangers',cursive;font-size:clamp(12px,3vw,17px);color:#1B5E20;letter-spacing:1px;margin-bottom:7px;}
+.tipitem{display:flex;align-items:flex-start;gap:7px;padding:3px 0;font-size:clamp(10px,2.3vw,13px);font-weight:700;color:#2E7D32;line-height:1.4;}
+
+/* ══ LEVEL OVERLAY ══ */
+.lov{
+  position:fixed;inset:0;background:rgba(13,27,75,.93);z-index:9990;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.lov.on{opacity:1;pointer-events:all;}
+.lov-emo{font-size:clamp(60px,16vw,90px);animation:bounce .5s ease infinite alternate;}
+.lov-title{font-family:'Bangers',cursive;font-size:clamp(24px,7vw,48px);color:var(--yellow);text-shadow:4px 4px 0 var(--red);letter-spacing:3px;margin:8px 0;}
+.lov-sub{color:#fff;font-size:clamp(13px,3vw,18px);font-weight:700;margin:6px 0;}
+@keyframes bounce{from{transform:translateY(-6px);}to{transform:translateY(6px);}}
+
+/* TOAST */
+.toast{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-120px);
+  background:var(--yellow);color:var(--dark);
+  font-family:'Bangers',cursive;font-size:clamp(12px,3vw,16px);letter-spacing:1px;
+  padding:10px 22px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  z-index:9999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  max-width:92vw;text-align:center;
+}
+.toast.on{transform:translateX(-50%) translateY(0);}
+.toast.err{background:var(--red);color:#fff;}
+.toast.win{background:var(--green);color:#fff;}
+
+/* CONFETTI */
+.cpiece{position:fixed;width:9px;height:9px;top:-20px;border-radius:2px;z-index:9998;pointer-events:none;animation:cfall linear forwards;}
+@keyframes cfall{to{top:115vh;transform:rotate(720deg) translateX(80px);}}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas" id="bgc"></div>
+
+<div id="app">
+
+<!-- ══ WELCOME ══ -->
+<div id="sc-welcome" class="screen active">
+  <div class="gh">
+    <div class="gh-title">🌟 MaterialMaster!</div>
+    <div class="gh-sub">🎓 English 6th Grade · Materials & Adjectives Adventure</div>
+  </div>
+  <div style="font-size:clamp(48px,14vw,80px);animation:float 3s ease-in-out infinite;">📚</div>
+  <div class="wcard">
+    <h2>¡BIENVENIDO TRAINER!</h2>
+    <ul class="rules">
+      <li>🟣 <span><b>Fase 0:</b> Deletrea los materiales y adjetivos en inglés</span></li>
+      <li>🔵 <span><b>Nivel 1:</b> Memorama de materiales/adjetivos EN ↔ ES</span></li>
+      <li>🔴 <span><b>Nivel 2:</b> Forma oraciones con IS/ARE + MADE OF arrastrando</span></li>
+      <li>🟣 <span><b>Nivel 3:</b> Forma negaciones + elige la traducción correcta</span></li>
+      <li>🏆 <span>¡Obtén tu certificado Pokémon al final!</span></li>
+    </ul>
+    <br>
+    <label style="font-weight:800;color:var(--dark);font-size:clamp(13px,3vw,17px);">¿Cuál es tu nombre, Trainer?</label>
+    <input type="text" id="pname" class="pinput" placeholder="Escribe tu nombre..." maxlength="24">
+    <button class="btn btn-y" onclick="startGame()" style="width:100%;margin-top:4px;">¡COMENZAR AVENTURA! ⚡</button>
+  </div>
+</div>
+
+<!-- ══ FASE 0: SPELLING ══ -->
+<div id="sc-spell" class="screen">
+  <div class="gh">
+    <div class="gh-title">FASE 0</div>
+    <div class="badge">🟣 DELETREA EL VOCABULARIO</div>
+  </div>
+  <div class="srow">
+    <div class="schip">⭐ <span id="sps">0</span>/15</div>
+    <div class="schip" id="spp">Palabra 1/15</div>
+  </div>
+  <div class="spell-wrap" id="spellwrap"></div>
+</div>
+
+<!-- ══ LEVEL 1: MEMORAMA ══ -->
+<div id="sc-memo" class="screen">
+  <div class="gh">
+    <div class="gh-title">NIVEL 1</div>
+    <div class="badge">🧠 MEMORAMA DE VOCABULARIO</div>
+  </div>
+  <div class="srow">
+    <div class="schip">✅ Pares: <span id="mp">0</span>/15</div>
+    <div class="schip">🔄 Intentos: <span id="ma">0</span></div>
+  </div>
+  <div class="memo-info" id="minfo">Une cada palabra en inglés con su traducción al español 🎴</div>
+  <div class="mgrid" id="mgrid"></div>
+</div>
+
+<!-- ══ LEVEL 2: AFIRMATIVO ══ -->
+<div id="sc-l2" class="screen">
+  <div class="gh">
+    <div class="gh-title">NIVEL 2</div>
+    <div class="badge">🧩 ORACIONES AFIRMATIVAS</div>
+  </div>
+  <div class="srow">
+    <div class="schip">⭐ <span id="l2s">0</span>/15</div>
+    <div class="schip" id="l2p">Oración 1/15</div>
+  </div>
+  <div id="l2c" style="width:100%;max-width:820px;box-sizing:border-box;"></div>
+</div>
+
+<!-- ══ LEVEL 3: NEGATIVO ══ -->
+<div id="sc-l3" class="screen">
+  <div class="gh">
+    <div class="gh-title">NIVEL 3</div>
+    <div class="badge">🔮 NEGACIONES + TRADUCCIÓN</div>
+  </div>
+  <div class="srow">
+    <div class="schip">⭐ <span id="l3s">0</span>/15</div>
+    <div class="schip" id="l3p">Oración 1/15</div>
+  </div>
+  <div id="l3c" style="width:100%;max-width:820px;box-sizing:border-box;"></div>
+</div>
+
+<!-- ══ CERTIFICATE ══ -->
+<div id="sc-cert" class="screen">
+  <div class="gh"><div class="gh-title">🏆 CERTIFICADO</div></div>
+  <div class="cert-wrap" id="certcard"></div>
+</div>
+
+</div>
+
+<!-- Overlay -->
+<div class="lov" id="lov">
+  <div class="lov-emo" id="loe">⭐</div>
+  <div class="lov-title" id="lot">¡FASE SUPERADA!</div>
+  <div class="lov-sub" id="los"></div>
+  <button class="btn btn-y" onclick="dismissLov()" style="margin-top:18px;">CONTINUAR ▶</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════
+const VOCAB = [
+  { en:'PLASTIC',   es:'PLÁSTICO',    ico:'🪣', hint:'Material sintético muy común' },
+  { en:'CLOTH',     es:'TELA',        ico:'🧵', hint:'Material suave para ropa' },
+  { en:'GOLD',      es:'ORO',         ico:'💛', hint:'Metal precioso amarillo' },
+  { en:'WOOD',      es:'MADERA',      ico:'🪵', hint:'Material de los árboles' },
+  { en:'WOOL',      es:'LANA',        ico:'🐑', hint:'Fibra natural de ovejas' },
+  { en:'PAPER',     es:'PAPEL',       ico:'📄', hint:'Material para escribir' },
+  { en:'CLAY',      es:'ARCILLA',     ico:'🏺', hint:'Barro para hacer cerámica' },
+  { en:'LEATHER',   es:'CUERO',       ico:'👜', hint:'Material de piel animal' },
+  { en:'SWEET',     es:'DULCE',       ico:'🍬', hint:'Sabor agradable al paladar' },
+  { en:'DELICIOUS', es:'DELICIOSO',   ico:'😋', hint:'Muy rico de comer' },
+  { en:'HORRIBLE',  es:'HORRIBLE',    ico:'🤢', hint:'Muy desagradable' },
+  { en:'SOUR',      es:'ÁCIDO/AGRIO', ico:'🍋', hint:'Sabor como el limón' },
+  { en:'HARD',      es:'DURO',        ico:'💎', hint:'Lo contrario de blando' },
+  { en:'SOFT',      es:'SUAVE/BLANDO',ico:'☁️', hint:'Lo contrario de duro' },
+  { en:'EXPENSIVE', es:'CARO',        ico:'💰', hint:'Cuesta mucho dinero' }
+];
+
+// Level 2 — affirmative: BOTH "IS" and "ARE" appear in the word bank, only one is correct → one must be left unused
+// hint tells translation; distractorVerb is the unused one students must leave in bank
+const SENTENCES = [
+  { words:['THE','BED','IS','MADE','OF','WOOD'],              extra:'ARE', emoji:'🛏️', hint:'La cama está hecha de madera' },
+  { words:['THE','CHAIRS','ARE','MADE','OF','PLASTIC'],       extra:'IS',  emoji:'🪑', hint:'Las sillas están hechas de plástico' },
+  { words:['THE','RING','IS','MADE','OF','GOLD'],             extra:'ARE', emoji:'💍', hint:'El anillo está hecho de oro' },
+  { words:['THE','GLOVES','ARE','MADE','OF','WOOL'],          extra:'IS',  emoji:'🧤', hint:'Los guantes están hechos de lana' },
+  { words:['THE','BOOK','IS','MADE','OF','PAPER'],            extra:'ARE', emoji:'📖', hint:'El libro está hecho de papel' },
+  { words:['THE','VASE','IS','MADE','OF','CLAY'],             extra:'ARE', emoji:'🏺', hint:'El jarrón está hecho de arcilla' },
+  { words:['THE','BAGS','ARE','MADE','OF','LEATHER'],         extra:'IS',  emoji:'👜', hint:'Las bolsas están hechas de cuero' },
+  { words:['THE','JACKET','IS','MADE','OF','CLOTH'],          extra:'ARE', emoji:'🧥', hint:'La chaqueta está hecha de tela' },
+  { words:['THE','CAKE','IS','DELICIOUS'],                    extra:'ARE', emoji:'🎂', hint:'El pastel es delicioso' },
+  { words:['THE','CANDY','IS','SWEET'],                       extra:'ARE', emoji:'🍬', hint:'El dulce es dulce' },
+  { words:['THE','LEMONS','ARE','SOUR'],                      extra:'IS',  emoji:'🍋', hint:'Los limones son ácidos' },
+  { words:['THE','SOUP','IS','HORRIBLE'],                     extra:'ARE', emoji:'🍲', hint:'La sopa es horrible' },
+  { words:['THE','DIAMOND','IS','HARD'],                      extra:'ARE', emoji:'💎', hint:'El diamante es duro' },
+  { words:['THE','PILLOWS','ARE','SOFT'],                     extra:'IS',  emoji:'🛋️', hint:'Las almohadas son suaves' },
+  { words:['THE','NECKLACE','IS','EXPENSIVE'],                extra:'ARE', emoji:'📿', hint:'El collar es caro' }
+];
+
+// Level 3 — negatives (15, no CHEAP)
+const NEG = [
+  { words:["THE","BED","IS","NOT","MADE","OF","PLASTIC"],          extra:"ARE", emoji:'🛏️', hint:'La cama no está hecha de plástico' },
+  { words:["THE","CHAIRS","ARE","NOT","MADE","OF","WOOD"],         extra:"IS",  emoji:'🪑', hint:'Las sillas no están hechas de madera' },
+  { words:["THE","RING","IS","NOT","MADE","OF","CLAY"],            extra:"ARE", emoji:'💍', hint:'El anillo no está hecho de arcilla' },
+  { words:["THE","GLOVES","ARE","NOT","MADE","OF","LEATHER"],      extra:"IS",  emoji:'🧤', hint:'Los guantes no están hechos de cuero' },
+  { words:["THE","BOOK","IS","NOT","MADE","OF","CLOTH"],           extra:"ARE", emoji:'📖', hint:'El libro no está hecho de tela' },
+  { words:["THE","VASE","IS","NOT","MADE","OF","GOLD"],            extra:"ARE", emoji:'🏺', hint:'El jarrón no está hecho de oro' },
+  { words:["THE","BAGS","ARE","NOT","MADE","OF","WOOL"],           extra:"IS",  emoji:'👜', hint:'Las bolsas no están hechas de lana' },
+  { words:["THE","JACKET","IS","NOT","MADE","OF","PAPER"],         extra:"ARE", emoji:'🧥', hint:'La chaqueta no está hecha de papel' },
+  { words:["THE","CAKE","IS","NOT","HORRIBLE"],                    extra:"ARE", emoji:'🎂', hint:'El pastel no es horrible' },
+  { words:["THE","CANDY","IS","NOT","SOUR"],                       extra:"ARE", emoji:'🍬', hint:'El dulce no es ácido' },
+  { words:["THE","LEMONS","ARE","NOT","SWEET"],                    extra:"IS",  emoji:'🍋', hint:'Los limones no son dulces' },
+  { words:["THE","SOUP","IS","NOT","DELICIOUS"],                   extra:"ARE", emoji:'🍲', hint:'La sopa no es deliciosa' },
+  { words:["THE","DIAMOND","IS","NOT","SOFT"],                     extra:"ARE", emoji:'💎', hint:'El diamante no es suave' },
+  { words:["THE","PILLOWS","ARE","NOT","HARD"],                    extra:"IS",  emoji:'🛋️', hint:'Las almohadas no son duras' },
+  { words:["THE","NECKLACE","IS","NOT","EXPENSIVE"],               extra:"ARE", emoji:'📿', hint:'El collar no es caro' }
+];
+
+// Translation options for Level 3 (15)
+const TRAD_OPTS = [
+  { correct:'La cama no está hecha de plástico',      wrong:['La cama está hecha de plástico','Las sillas no están hechas de madera'] },
+  { correct:'Las sillas no están hechas de madera',   wrong:['Las sillas están hechas de madera','El anillo no está hecho de arcilla'] },
+  { correct:'El anillo no está hecho de arcilla',     wrong:['El anillo está hecho de oro','Los guantes no están hechos de cuero'] },
+  { correct:'Los guantes no están hechos de cuero',   wrong:['Los guantes están hechos de lana','El libro no está hecho de tela'] },
+  { correct:'El libro no está hecho de tela',         wrong:['El libro está hecho de papel','El jarrón no está hecho de oro'] },
+  { correct:'El jarrón no está hecho de oro',         wrong:['El jarrón está hecho de arcilla','Las bolsas no están hechas de lana'] },
+  { correct:'Las bolsas no están hechas de lana',     wrong:['Las bolsas están hechas de cuero','La chaqueta no está hecha de papel'] },
+  { correct:'La chaqueta no está hecha de papel',     wrong:['La chaqueta está hecha de tela','El pastel no es horrible'] },
+  { correct:'El pastel no es horrible',               wrong:['El pastel es delicioso','El dulce no es ácido'] },
+  { correct:'El dulce no es ácido',                   wrong:['El dulce es dulce','Los limones no son dulces'] },
+  { correct:'Los limones no son dulces',              wrong:['Los limones son ácidos','La sopa no es deliciosa'] },
+  { correct:'La sopa no es deliciosa',                wrong:['La sopa es horrible','El diamante no es suave'] },
+  { correct:'El diamante no es suave',                wrong:['El diamante es duro','Las almohadas no son duras'] },
+  { correct:'Las almohadas no son duras',             wrong:['Las almohadas son suaves','El collar no es caro'] },
+  { correct:'El collar no es caro',                   wrong:['El collar es caro','La cama no está hecha de plástico'] }
+];
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let pname='', scores={sp:0,m:0,l2:0,l3:0};
+let spIdx=0, spOk=0, spCurrent=[], spTyped=[];
+let mflipped=[], mmatched=0, mattempts=0, mlocked=false;
+let l2i=0, l2ok=0, l3i=0, l3ok=0, l3tok=0;
+let tradChecked=false;
+let lovCb=null, dragSrc=null, tchEl=null, tchClone=null;
+
+// ══════════════════════════════════════════════
+// ANIMATED BG
+// ══════════════════════════════════════════════
+(function buildBg(){
+  const bg=document.getElementById('bgc');
+  const colors=['#E53935','#1565C0','#FFD600','#7B1FA2','#00897B'];
+  for(let i=0;i<18;i++){
+    const b=document.createElement('div');b.className='ball';
+    const s=20+Math.random()*60;
+    b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}vw;background:${colors[i%colors.length]};animation-duration:${6+Math.random()*12}s;animation-delay:${-Math.random()*14}s;`;
+    bg.appendChild(b);
+  }
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div');s.className='star';
+    s.style.cssText=`left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${1+Math.random()*3}s;animation-delay:${Math.random()*3}s;`;
+    bg.appendChild(s);
+  }
+})();
+
+// ══════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type;void t.offsetWidth;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2400);}
+function confetti(){
+  const cols=['#FFD600','#E53935','#00C853','#1565C0','#E040FB','#FF6D00'];
+  for(let i=0;i<70;i++){
+    const c=document.createElement('div');c.className='cpiece';
+    c.style.cssText=`left:${Math.random()*100}vw;background:${cols[~~(Math.random()*cols.length)]};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;animation-duration:${1.5+Math.random()*2.5}s;animation-delay:${Math.random()}s;`;
+    document.body.appendChild(c);setTimeout(()=>c.remove(),5000);
+  }
+}
+function showLov(emo,title,sub,cb){
+  lovCb=cb;
+  document.getElementById('loe').textContent=emo;
+  document.getElementById('lot').textContent=title;
+  document.getElementById('los').textContent=sub;
+  document.getElementById('lov').classList.add('on');
+  confetti();
+}
+function dismissLov(){document.getElementById('lov').classList.remove('on');if(lovCb){lovCb();lovCb=null;}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+// ══════════════════════════════════════════════
+// START
+// ══════════════════════════════════════════════
+function startGame(){
+  const n=document.getElementById('pname').value.trim();
+  if(!n){toast('¡Escribe tu nombre primero! 😄','err');return;}
+  pname=n; initSpell(); show('sc-spell');
+}
+
+// ══════════════════════════════════════════════
+// FASE 0 — SPELLING
+// ══════════════════════════════════════════════
+function initSpell(){
+  spIdx=0; spOk=0;
+  document.getElementById('sps').textContent='0';
+  renderSpell();
+}
+
+function renderSpell(){
+  const v = VOCAB[spIdx];
+  document.getElementById('spp').textContent=`Palabra ${spIdx+1}/16`;
+  spCurrent = v.en.split('');
+  spTyped = Array(spCurrent.length).fill('');
+
+  const wrap = document.getElementById('spellwrap');
+  const boxes = spCurrent.map((_,i)=>`<div class="lbox" id="lb${i}"></div>`).join('');
+
+  // Build keyboard with shuffled letters + some distractors
+  const letters = [...new Set(spCurrent)];
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  let extras = alpha.filter(l=>!letters.includes(l));
+  extras = extras.sort(()=>Math.random()-.5).slice(0,Math.max(4, 10-letters.length));
+  const keyboard = [...letters,...extras].sort(()=>Math.random()-.5);
+
+  wrap.innerHTML=`
+    <div class="spell-card">
+      <span class="spell-emoji">${v.ico}</span>
+      <div class="spell-progress">${v.hint}</div>
+      <div class="letter-boxes">${boxes}</div>
+      <div class="letter-keyboard" id="lkeyboard">
+        ${keyboard.map(l=>`<button class="lkey" onclick="pressLetter('${l}')" id="lk_${l}">${l}</button>`).join('')}
+      </div>
+      <div class="spell-btns">
+        <button class="btn-sm" style="background:#EF9A9A;color:#B71C1C;" onclick="deleteLetter()">⌫ BORRAR</button>
+        <button class="btn-sm btn-g" onclick="checkSpell()">✅ VERIFICAR</button>
+
+      </div>
+      <div class="spell-fbk" id="spfbk"></div>
+    </div>`;
+}
+
+function pressLetter(l){
+  const next = spTyped.indexOf('');
+  if(next === -1) return;
+  spTyped[next] = l;
+  const box = document.getElementById('lb'+next);
+  box.textContent = l;
+  box.classList.add('filled');
+  // mark key used if all instances filled
+  const needed = spCurrent.filter(c=>c===l).length;
+  const filled = spTyped.filter(c=>c===l).length;
+  if(filled >= needed){
+    const key = document.getElementById('lk_'+l);
+    if(key) key.classList.add('used');
+  }
+}
+
+function deleteLetter(){
+  // find last filled
+  let last = -1;
+  for(let i=spTyped.length-1;i>=0;i--){if(spTyped[i]!==''){last=i;break;}}
+  if(last===-1) return;
+  const l = spTyped[last];
+  spTyped[last]='';
+  const box = document.getElementById('lb'+last);
+  box.textContent=''; box.classList.remove('filled','correct','wrong');
+  // re-enable key
+  const key = document.getElementById('lk_'+l);
+  if(key) key.classList.remove('used');
+}
+
+function checkSpell(){
+  if(spTyped.includes('')) { toast('¡Completa todas las letras!','err'); return; }
+  const formed = spTyped.join('');
+  const correct = spCurrent.join('');
+  const fbk = document.getElementById('spfbk');
+  if(formed===correct){
+    spCurrent.forEach((_,i)=>{
+      const b=document.getElementById('lb'+i);
+      b.classList.remove('filled'); b.classList.add('correct');
+    });
+    fbk.textContent=`🎉 ¡Correcto! ${VOCAB[spIdx].en} = ${VOCAB[spIdx].es}`;
+    fbk.className='spell-fbk ok';
+    spOk++;
+    document.getElementById('sps').textContent=spOk;
+    toast('¡Excelente Trainer! ⭐','win');
+    setTimeout(nextSpell, 1500);
+  } else {
+    spCurrent.forEach((_,i)=>{
+      const b=document.getElementById('lb'+i);
+      b.classList.remove('filled');
+      b.classList.add(spTyped[i]===spCurrent[i]?'correct':'wrong');
+    });
+    fbk.textContent=`❌ No es correcto. Intenta de nuevo.`;
+    fbk.className='spell-fbk no';
+    setTimeout(()=>{
+      spTyped=Array(spCurrent.length).fill('');
+      spCurrent.forEach((_,i)=>{
+        const b=document.getElementById('lb'+i);
+        b.textContent=''; b.className='lbox';
+      });
+      document.querySelectorAll('.lkey').forEach(k=>k.classList.remove('used'));
+      fbk.className='spell-fbk';
+    }, 1600);
+  }
+}
+
+function nextSpell(){
+  spIdx++;
+  if(spIdx>=15){
+    scores.sp=Math.round(spOk/15*100)/10;
+    setTimeout(()=>showLov('🟣','¡FASE 0 SUPERADA!',`¡Deletreaste ${spOk}/15 palabras!`,()=>{initMemo();show('sc-memo');}),300);
+  } else renderSpell();
+}
+
+// ══════════════════════════════════════════════
+// LEVEL 1 — MEMORAMA
+// ══════════════════════════════════════════════
+function initMemo(){
+  mflipped=[];mmatched=0;mattempts=0;mlocked=false;
+  document.getElementById('mp').textContent='0';
+  document.getElementById('ma').textContent='0';
+  let cards=[];
+  VOCAB.forEach((v,i)=>{
+    cards.push({id:'e'+i,pair:i,type:'en',word:v.en,ico:v.ico});
+    cards.push({id:'s'+i,pair:i,type:'es',word:v.es,ico:v.ico});
+  });
+  cards=cards.sort(()=>Math.random()-.5);
+  const g=document.getElementById('mgrid');g.innerHTML='';
+  cards.forEach(c=>{
+    const el=document.createElement('div');
+    el.className='mc';el.dataset.pair=c.pair;el.dataset.type=c.type;
+    el.innerHTML=`<div class="mc-inner">
+      <div class="mc-back"><span class="pbi">🔴</span><span style="font-size:9px;margin-top:3px;opacity:.4">???</span></div>
+      <div class="mc-front ${c.type}">
+        <span class="mlang">${c.type==='en'?'🇺🇸 English':'🇲🇽 Español'}</span>
+        <span class="mico">${c.ico}</span>
+        <span>${c.word}</span>
+      </div>
+    </div>`;
+    el.addEventListener('click',()=>flipCard(el));
+    g.appendChild(el);
+  });
+}
+
+function flipCard(el){
+  if(mlocked||el.classList.contains('flipped')||el.classList.contains('matched'))return;
+  el.classList.add('flipped');mflipped.push(el);
+  if(mflipped.length===2){mlocked=true;mattempts++;document.getElementById('ma').textContent=mattempts;checkMemo();}
+}
+
+function checkMemo(){
+  const[a,b]=mflipped;
+  if(a.dataset.pair===b.dataset.pair&&a.dataset.type!==b.dataset.type){
+    a.classList.add('matched');b.classList.add('matched');mmatched++;
+    document.getElementById('mp').textContent=mmatched;
+    toast('¡Pareja encontrada! ✅','win');
+    if(mmatched===15){
+      scores.m=Math.max(6,Math.min(10,10-Math.floor(Math.max(0,mattempts-30)*.1)));
+      setTimeout(()=>showLov('🎉','¡NIVEL 1 SUPERADO!',`¡Encontraste todos los pares en ${mattempts} intentos!`,()=>{initL2();show('sc-l2');}),500);
+    }
+    mflipped=[];mlocked=false;
+  } else {
+    toast('¡Sigue buscando! 🔍','');
+    setTimeout(()=>{a.classList.remove('flipped');b.classList.remove('flipped');mflipped=[];mlocked=false;},950);
+  }
+}
+
+// ══════════════════════════════════════════════
+// LEVEL 2 — AFFIRMATIVE DRAG
+// ══════════════════════════════════════════════
+function initL2(){l2i=0;l2ok=0;document.getElementById('l2s').textContent='0';renderL2();}
+
+function renderL2(){
+  const s=SENTENCES[l2i];
+  document.getElementById('l2p').textContent=`Oración ${l2i+1}/15`;
+  // Mix correct words + the distractor verb (IS or ARE), then shuffle
+  const allWords=[...s.words, s.extra];
+  const sh=allWords.sort(()=>Math.random()-.5);
+  const extraNote=`⚠️ Hay un <b>IS</b> o <b>ARE</b> extra — ¡elige el correcto y deja uno sin usar!`;
+  document.getElementById('l2c').innerHTML=`
+    <div class="scard">
+      <span class="sem">${s.emoji}</span>
+      <div class="shint">💡 ${s.hint}</div>
+      <div style="background:#FFF9C4;border:2px solid #FFD600;border-radius:9px;padding:6px 10px;font-size:clamp(11px,2.5vw,14px);font-weight:700;color:#5D4037;margin-bottom:8px;text-align:center;">${extraNote}</div>
+      <h3>🧩 Arrastra las palabras y forma la oración:</h3>
+      <div class="wbank" id="wb2">${sh.map(w=>`<div class="wchip" draggable="true" data-w="${esc(w)}">${esc(w)}</div>`).join('')}</div>
+      <div class="dropz" id="dz2"></div>
+      <div class="btns-row">
+        <button class="btn-sm btn-g" onclick="chkL2()">✅ VERIFICAR</button>
+        <button class="btn-sm" style="background:#9FA8DA;color:#fff;" onclick="rstL2()">🔄 REINICIAR</button>
+      </div>
+      <div class="fbk" id="fbk2"></div>
+    </div>`;
+  setupDrag('wb2','dz2');
+}
+
+function rstL2(){document.getElementById('dz2').querySelectorAll('.wchip').forEach(c=>{c.classList.remove('ind');document.getElementById('wb2').appendChild(c);});}
+
+function chkL2(){
+  const chips=[...document.getElementById('dz2').querySelectorAll('.wchip')];
+  const formed=chips.map(c=>c.dataset.w).join(' ');
+  const correct=SENTENCES[l2i].words.join(' ');
+  const fb=document.getElementById('fbk2');
+  if(formed===correct){
+    document.getElementById('dz2').classList.add('ok');
+    fb.textContent='🎉 ¡Correcto! ¡Muy bien, Trainer!';fb.className='fbk ok';
+    l2ok++;document.getElementById('l2s').textContent=l2ok;
+    setTimeout(()=>{l2i++;if(l2i>=15){scores.l2=Math.round(l2ok/15*100)/10;showLov('⚡','¡NIVEL 2 SUPERADO!',`¡Formaste ${l2ok}/15 oraciones!`,()=>{initL3();show('sc-l3');});}else renderL2();},1300);
+  } else {
+    document.getElementById('dz2').classList.add('no');
+    fb.textContent=`❌ Revisa el orden. Correcto: ${correct}`;fb.className='fbk no';
+    setTimeout(()=>{document.getElementById('dz2').classList.remove('no');fb.className='fbk';},2200);
+  }
+}
+
+// ══════════════════════════════════════════════
+// LEVEL 3 — NEGATIVE DRAG + CARD TRANSLATION
+// ══════════════════════════════════════════════
+function initL3(){l3i=0;l3ok=0;l3tok=0;document.getElementById('l3s').textContent='0';renderL3();}
+
+function renderL3(){
+  tradChecked=false;
+  const s=NEG[l3i];
+  document.getElementById('l3p').textContent=`Oración ${l3i+1}/15`;
+  const allWords=[...s.words, s.extra];
+  const sh=allWords.sort(()=>Math.random()-.5);
+  const extraNote=`⚠️ Hay un <b>IS</b> o <b>ARE</b> extra — ¡elige el correcto y deja uno sin usar!`;
+  document.getElementById('l3c').innerHTML=`
+    <div class="scard">
+      <span class="sem">${s.emoji}</span>
+      <div id="l3hint" class="shint">💡 ${s.hint}</div>
+      <div id="l3note" style="background:#FFF9C4;border:2px solid #FFD600;border-radius:9px;padding:6px 10px;font-size:clamp(11px,2.5vw,14px);font-weight:700;color:#5D4037;margin-bottom:8px;text-align:center;">${extraNote}</div>
+      <h3>🔮 Arrastra y forma la NEGACIÓN con IS NOT / ARE NOT:</h3>
+      <div class="wbank" id="wb3">${sh.map(w=>`<div class="wchip" draggable="true" data-w="${esc(w)}">${esc(w)}</div>`).join('')}</div>
+      <div class="dropz" id="dz3"></div>
+      <div class="btns-row">
+        <button class="btn-sm btn-g" id="chkbtn3" onclick="chkL3()">✅ VERIFICAR</button>
+        <button class="btn-sm" style="background:#9FA8DA;color:#fff;" onclick="rstL3()">🔄 REINICIAR</button>
+      </div>
+      <div class="fbk" id="fbk3"></div>
+      <div class="tbox" id="tbox">
+        <span class="tbox-label">🌎 ¿Cuál es la traducción correcta?</span>
+        <div class="tbox-sent" id="tdisp"></div>
+        <div class="tcards" id="tcards"></div>
+        <div class="fbk" id="fbkt"></div>
+      </div>
+    </div>`;
+  setupDrag('wb3','dz3');
+}
+
+function rstL3(){document.getElementById('dz3').querySelectorAll('.wchip').forEach(c=>{c.classList.remove('ind');document.getElementById('wb3').appendChild(c);});}
+
+function chkL3(){
+  const chips=[...document.getElementById('dz3').querySelectorAll('.wchip')];
+  const formed=chips.map(c=>c.dataset.w).join(' ');
+  const correct=NEG[l3i].words.join(' ');
+  const fb=document.getElementById('fbk3');
+  if(formed===correct){
+    document.getElementById('dz3').classList.add('ok');
+    fb.textContent='✅ ¡Negación correcta! Ahora elige la traducción 👇';fb.className='fbk ok';
+    l3ok++;document.getElementById('l3s').textContent=l3ok;
+    document.getElementById('tdisp').textContent=correct;
+    buildTradCards();
+    // Ocultar pista y nota para que no vean la respuesta al traducir
+    const hintEl=document.getElementById('l3hint');
+    const noteEl=document.getElementById('l3note');
+    if(hintEl) hintEl.style.display='none';
+    if(noteEl) noteEl.style.display='none';
+    document.getElementById('tbox').style.display='block';
+    chips.forEach(c=>c.style.pointerEvents='none');
+    document.getElementById('wb3').style.pointerEvents='none';
+    document.getElementById('chkbtn3').style.pointerEvents='none';
+  } else {
+    document.getElementById('dz3').classList.add('no');
+    fb.textContent=`❌ Revisa el orden. Correcto: ${correct}`;fb.className='fbk no';
+    setTimeout(()=>{document.getElementById('dz3').classList.remove('no');fb.className='fbk';},2100);
+  }
+}
+
+function buildTradCards(){
+  const opt=TRAD_OPTS[l3i];
+  const letters=['A','B','C'];
+  const icons=['🟡','🔵','🔴'];
+  const options=[
+    {txt:opt.correct,ok:true},
+    {txt:opt.wrong[0],ok:false},
+    {txt:opt.wrong[1],ok:false}
+  ].sort(()=>Math.random()-.5);
+  const container=document.getElementById('tcards');
+  container.innerHTML=options.map((o,i)=>`
+    <div class="tcard" onclick="pickTrad(this,${o.ok})" data-ok="${o.ok}">
+      <div class="tcard-letter">${letters[i]}</div>
+      <div class="tcard-ico">${icons[i]}</div>
+      <div>${esc(o.txt)}</div>
+    </div>`).join('');
+}
+
+function pickTrad(el,isOk){
+  if(tradChecked)return;
+  tradChecked=true;
+  const fb=document.getElementById('fbkt');
+  document.querySelectorAll('.tcard').forEach(c=>c.classList.add('disabled'));
+  if(isOk){
+    el.classList.add('correct');el.classList.remove('disabled');
+    fb.textContent='🎉 ¡Traducción correcta! ¡Excelente, Trainer!';fb.className='fbk ok';
+    l3tok++;
+    setTimeout(nextL3,1600);
+  } else {
+    el.classList.add('wrong');el.classList.remove('disabled');
+    document.querySelectorAll('.tcard').forEach(c=>{if(c.dataset.ok==='true')c.classList.add('correct');});
+    fb.textContent='❌ ¡Casi! La correcta era la marcada en verde.';fb.className='fbk no';
+    setTimeout(nextL3,2600);
+  }
+}
+
+function nextL3(){
+  l3i++;
+  if(l3i>=15){
+    scores.l3=Math.round(((l3ok+l3tok)/30)*10*10)/10;
+    setTimeout(showCert,400);
+  } else renderL3();
+}
+
+// ══════════════════════════════════════════════
+// CERTIFICATE
+// ══════════════════════════════════════════════
+function showCert(){
+  const total=Math.round((scores.sp+scores.m+scores.l2+scores.l3)/4*10)/10;
+  const gc=s=>s>=8?'grt':s>=5?'med':'low';
+  const gs=s=>s>=8?'⭐⭐⭐':s>=5?'⭐⭐':'⭐';
+
+  const PKM=[
+    {emo:'⚡',name:'PIKACHU',   type:'Eléctrico',msg:'¡Eres un Maestro de los Materiales! ¡Resultado perfecto!'},
+    {emo:'🔥',name:'CHARMANDER',type:'Fuego',    msg:'¡Excelente trabajo! ¡Dominas los materiales!'},
+    {emo:'💧',name:'SQUIRTLE',  type:'Agua',     msg:'¡Muy bien! Practica un poco más y lo dominarás.'},
+    {emo:'🌿',name:'BULBASAUR', type:'Planta',   msg:'¡No te rindas! Con práctica serás el mejor Trainer.'}
+  ];
+  const pk=total>=9?PKM[0]:total>=7?PKM[1]:total>=5?PKM[2]:PKM[3];
+
+  const impr=[];
+  if(scores.sp<7) impr.push('🟣 Repasa el deletreo de materiales y adjetivos en inglés');
+  if(scores.m<7)  impr.push('🧠 Practica el vocabulario: materiales y adjetivos EN ↔ ES');
+  if(scores.l2<7) impr.push('📝 Recuerda: IS (singular) + MADE OF / ARE (plural) + MADE OF');
+  if(scores.l3<7) impr.push('🔮 Practica las negaciones: IS NOT / ARE NOT + MADE OF');
+  if(impr.length===0) impr.push('🌟 ¡Perfecto! ¡Continúa explorando más vocabulario en inglés!');
+
+  const tips=[
+    '💡 Singular → IS (The ring IS made of gold)',
+    '💡 Plural → ARE (The chairs ARE made of plastic)',
+    '💡 Negativo singular → IS NOT (The vase IS NOT made of wood)',
+    '💡 Negativo plural → ARE NOT (The bags ARE NOT made of paper)',
+    '💡 Adjetivos: The cake IS delicious / The lemons ARE sour'
+  ];
+
+  const certcard=document.getElementById('certcard');
+  certcard.innerHTML=`
+    <div class="cert-top">
+      <div class="cert-poke">${pk.emo}</div>
+      <div class="cert-title">🏆 CERTIFICADO MATERIALMASTER</div>
+      <div class="cert-name">${esc(pname)}</div>
+      <div class="cert-tagline">${pk.msg}</div>
+    </div>
+    <div class="cert-body">
+      <div class="sgrid">
+        <div class="sitem s1">
+          <span class="sico">🟣</span>
+          <span class="snum ${gc(scores.sp)}">${scores.sp}/10</span>
+          <span class="slbl">Fase 0</span>
+          <span class="ssub">Spelling</span>
+          <span class="sstar">${gs(scores.sp)}</span>
+        </div>
+        <div class="sitem s2">
+          <span class="sico">🧠</span>
+          <span class="snum ${gc(scores.m)}">${scores.m}/10</span>
+          <span class="slbl">Nivel 1</span>
+          <span class="ssub">Memorama</span>
+          <span class="sstar">${gs(scores.m)}</span>
+        </div>
+        <div class="sitem s3">
+          <span class="sico">🧩</span>
+          <span class="snum ${gc(scores.l2)}">${scores.l2}/10</span>
+          <span class="slbl">Nivel 2</span>
+          <span class="ssub">Afirmativo</span>
+          <span class="sstar">${gs(scores.l2)}</span>
+        </div>
+        <div class="sitem s4">
+          <span class="sico">🔮</span>
+          <span class="snum ${gc(scores.l3)}">${scores.l3}/10</span>
+          <span class="slbl">Nivel 3</span>
+          <span class="ssub">Negaciones</span>
+          <span class="sstar">${gs(scores.l3)}</span>
+        </div>
+      </div>
+      <div class="total-bar">
+        <div class="tl-left">
+          <span class="tl-lbl">⭐ CALIFICACIÓN FINAL</span>
+          <span class="tl-sub">Promedio de las 4 fases</span>
+        </div>
+        <div class="tl-num">${total}<span style="font-size:.45em;opacity:.7">/10</span></div>
+      </div>
+      <div class="pbox">
+        <div class="pbox-emo">${pk.emo}</div>
+        <div>
+          <div class="pbox-name">${pk.name}</div>
+          <div class="pbox-type">Tipo: ${pk.type} · Tu Pokémon compañero 🎖️</div>
+          <div class="pbox-msg">${pk.msg}</div>
+        </div>
+      </div>
+      <div class="impbox">
+        <h4>💡 ¿QUÉ PUEDES MEJORAR?</h4>
+        ${impr.map(i=>`<div class="impitem"><span>▶</span><span>${i}</span></div>`).join('')}
+      </div>
+      <div class="tipsbox">
+        <h4>🎯 REGLAS CLAVE</h4>
+        ${tips.map(t=>`<div class="tipitem"><span>✓</span><span>${t}</span></div>`).join('')}
+      </div>
+      <button class="btn btn-y" onclick="restart()" style="width:100%;">🔄 JUGAR DE NUEVO</button>
+    </div>`;
+
+  show('sc-cert');confetti();
+}
+
+function restart(){
+  scores={sp:0,m:0,l2:0,l3:0};
+  spIdx=0;spOk=0;l2i=0;l3i=0;l2ok=0;l3ok=0;l3tok=0;
+  show('sc-welcome');
+}
+
+// ══════════════════════════════════════════════
+// DRAG & DROP — Desktop + Touch
+// ══════════════════════════════════════════════
+function setupDrag(bankId,dropId){
+  const bank=document.getElementById(bankId);
+  const drop=document.getElementById(dropId);
+  if(!bank||!drop)return;
+
+  [bank,drop].forEach(src=>{
+    src.addEventListener('dragstart',e=>{
+      if(!e.target.classList.contains('wchip'))return;
+      dragSrc=e.target;dragSrc.classList.add('drag');
+      e.dataTransfer.effectAllowed='move';
+    });
+    src.addEventListener('dragend',e=>{if(e.target.classList)e.target.classList.remove('drag');});
+  });
+  drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+  drop.addEventListener('drop',e=>{
+    e.preventDefault();drop.classList.remove('over');
+    if(dragSrc){dragSrc.classList.add('ind');drop.appendChild(dragSrc);dragSrc=null;}
+  });
+  bank.addEventListener('dragover',e=>e.preventDefault());
+  bank.addEventListener('drop',e=>{
+    e.preventDefault();
+    if(dragSrc&&dragSrc.classList.contains('ind')){dragSrc.classList.remove('ind');bank.appendChild(dragSrc);dragSrc=null;}
+  });
+
+  // Touch
+  function ts(e){
+    const chip=e.target.closest('.wchip');if(!chip)return;
+    e.preventDefault();tchEl=chip;
+    tchClone=chip.cloneNode(true);
+    tchClone.style.cssText=`position:fixed;z-index:9999;opacity:.85;pointer-events:none;transform:scale(1.12) rotate(3deg);width:${chip.offsetWidth}px;`;
+    document.body.appendChild(tchClone);mv(e.touches[0]);
+  }
+  function tm(e){if(!tchEl)return;e.preventDefault();mv(e.touches[0]);}
+  function te(e){
+    if(!tchEl||!tchClone)return;
+    tchClone.remove();
+    const t=e.changedTouches[0];
+    const el=document.elementFromPoint(t.clientX,t.clientY);
+    const td=el?.closest('.dropz');const tb=el?.closest('.wbank');
+    if(td&&tchEl.closest('.dropz')!==td){tchEl.classList.add('ind');td.appendChild(tchEl);}
+    else if(tb&&tchEl.classList.contains('ind')){tchEl.classList.remove('ind');tb.appendChild(tchEl);}
+    tchEl=null;tchClone=null;
+  }
+  function mv(t){if(!tchClone)return;tchClone.style.left=(t.clientX-tchClone.offsetWidth/2)+'px';tchClone.style.top=(t.clientY-tchClone.offsetHeight/2)+'px';}
+
+  document.addEventListener('touchstart',ts,{passive:false});
+  document.addEventListener('touchmove',tm,{passive:false});
+  document.addEventListener('touchend',te);
+}
+</script>
+</body>
+</html>
