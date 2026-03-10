@@ -213,36 +213,58 @@ body{
 .fbk.ok{background:#E8F5E9;color:#1B5E20;display:block;}
 .fbk.no{background:#FFEBEE;color:#B71C1C;display:block;}
 
-/* ══ TRANSLATE CARDS ══ */
+/* ══ TRANSLATE CARDS — FIXED ══ */
 .tbox{
   margin-top:12px;padding:14px;background:linear-gradient(135deg,#FFF8E1,#FFFDE7);
   border-radius:14px;border:3px solid var(--yellow);display:none;
 }
 .tbox-label{font-family:'Bangers',cursive;font-size:clamp(14px,3.5vw,20px);color:var(--dark);letter-spacing:1px;display:block;margin-bottom:4px;}
-.tbox-sent{font-size:clamp(13px,3vw,16px);font-weight:800;color:var(--mid);margin-bottom:12px;padding:8px 12px;background:rgba(255,255,255,.8);border-radius:8px;border-left:4px solid var(--yellow);}
+.tbox-sent{
+  font-size:clamp(13px,3vw,16px);font-weight:800;color:var(--mid);
+  margin-bottom:12px;padding:8px 12px;background:rgba(255,255,255,.8);
+  border-radius:8px;border-left:4px solid var(--yellow);
+  word-break:break-word;
+}
+
+/* FIXED: 1 col on tiny phones, 3 cols on wider screens */
 .tcards{display:grid;grid-template-columns:1fr;gap:9px;}
-@media(min-width:480px){.tcards{grid-template-columns:1fr 1fr 1fr;}}
+@media(min-width:420px){.tcards{grid-template-columns:1fr 1fr 1fr;}}
+
+/* FIXED: tcard text wraps properly, no overflow */
 .tcard{
   background:#fff;border:3px solid #9FA8DA;border-radius:14px;
-  padding:clamp(10px,3vw,16px) clamp(8px,2.5vw,14px);
+  padding:clamp(8px,2.5vw,14px) clamp(6px,2vw,12px);
   cursor:pointer;text-align:center;
-  font-size:clamp(11px,2.8vw,15px);font-weight:800;color:var(--dark);
+  font-size:clamp(11px,2.5vw,14px);font-weight:800;color:var(--dark);
   transition:all .2s;box-shadow:0 4px 0 #C5CAE9;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
   user-select:none;
+  /* FIXES overlap */
+  word-break:break-word;
+  overflow-wrap:break-word;
+  hyphens:auto;
+  min-height:80px;
+  justify-content:center;
 }
 .tcard:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 7px 0 #1565C0;}
 .tcard:active{transform:scale(.96);}
 .tcard.correct{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border-color:var(--green);box-shadow:0 4px 0 #1B5E20;animation:popIn .35s ease;}
 .tcard.wrong{background:linear-gradient(135deg,#FFEBEE,#FFCDD2);border-color:var(--red);box-shadow:0 4px 0 #8B0000;animation:shake .35s;}
 .tcard.disabled{pointer-events:none;opacity:.55;}
-.tcard-ico{font-size:clamp(20px,5vw,28px);}
+.tcard-ico{font-size:clamp(18px,4.5vw,26px);line-height:1;}
 .tcard-letter{
   width:28px;height:28px;border-radius:50%;
   background:var(--mid);color:#fff;
   font-family:'Bangers',cursive;font-size:16px;
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;margin-bottom:2px;
+}
+/* FIXED: text inside tcard wraps cleanly */
+.tcard-text{
+  font-size:clamp(10px,2.4vw,13px);
+  line-height:1.35;
+  word-break:break-word;
+  overflow-wrap:break-word;
 }
 @keyframes popIn{0%{transform:scale(.9);}60%{transform:scale(1.06);}100%{transform:scale(1);}}
 
@@ -448,8 +470,6 @@ const VOCAB = [
   { en:'EXPENSIVE', es:'CARO',        ico:'💰', hint:'Cuesta mucho dinero' }
 ];
 
-// Level 2 — affirmative: BOTH "IS" and "ARE" appear in the word bank, only one is correct → one must be left unused
-// hint tells translation; distractorVerb is the unused one students must leave in bank
 const SENTENCES = [
   { words:['THE','BED','IS','MADE','OF','WOOD'],              extra:'ARE', emoji:'🛏️', hint:'La cama está hecha de madera' },
   { words:['THE','CHAIRS','ARE','MADE','OF','PLASTIC'],       extra:'IS',  emoji:'🪑', hint:'Las sillas están hechas de plástico' },
@@ -468,7 +488,6 @@ const SENTENCES = [
   { words:['THE','NECKLACE','IS','EXPENSIVE'],                extra:'ARE', emoji:'📿', hint:'El collar es caro' }
 ];
 
-// Level 3 — negatives (15, no CHEAP)
 const NEG = [
   { words:["THE","BED","IS","NOT","MADE","OF","PLASTIC"],          extra:"ARE", emoji:'🛏️', hint:'La cama no está hecha de plástico' },
   { words:["THE","CHAIRS","ARE","NOT","MADE","OF","WOOD"],         extra:"IS",  emoji:'🪑', hint:'Las sillas no están hechas de madera' },
@@ -487,7 +506,6 @@ const NEG = [
   { words:["THE","NECKLACE","IS","NOT","EXPENSIVE"],               extra:"ARE", emoji:'📿', hint:'El collar no es caro' }
 ];
 
-// Translation options for Level 3 (15)
 const TRAD_OPTS = [
   { correct:'La cama no está hecha de plástico',      wrong:['La cama está hecha de plástico','Las sillas no están hechas de madera'] },
   { correct:'Las sillas no están hechas de madera',   wrong:['Las sillas están hechas de madera','El anillo no está hecho de arcilla'] },
@@ -515,6 +533,15 @@ let mflipped=[], mmatched=0, mattempts=0, mlocked=false;
 let l2i=0, l2ok=0, l3i=0, l3ok=0, l3tok=0;
 let tradChecked=false;
 let lovCb=null, dragSrc=null, tchEl=null, tchClone=null;
+
+// ── FIX: Touch listener references — clean up before each new card ──
+let _tsFn=null, _tmFn=null, _teFn=null;
+function removeTouchListeners(){
+  if(_tsFn) document.removeEventListener('touchstart', _tsFn);
+  if(_tmFn) document.removeEventListener('touchmove',  _tmFn);
+  if(_teFn) document.removeEventListener('touchend',   _teFn);
+  _tsFn=_tmFn=_teFn=null;
+}
 
 // ══════════════════════════════════════════════
 // ANIMATED BG
@@ -579,14 +606,14 @@ function initSpell(){
 
 function renderSpell(){
   const v = VOCAB[spIdx];
-  document.getElementById('spp').textContent=`Palabra ${spIdx+1}/16`;
+  // FIXED: was showing /16 — now correctly shows /15
+  document.getElementById('spp').textContent=`Palabra ${spIdx+1}/15`;
   spCurrent = v.en.split('');
   spTyped = Array(spCurrent.length).fill('');
 
   const wrap = document.getElementById('spellwrap');
   const boxes = spCurrent.map((_,i)=>`<div class="lbox" id="lb${i}"></div>`).join('');
 
-  // Build keyboard with shuffled letters + some distractors
   const letters = [...new Set(spCurrent)];
   const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   let extras = alpha.filter(l=>!letters.includes(l));
@@ -604,7 +631,6 @@ function renderSpell(){
       <div class="spell-btns">
         <button class="btn-sm" style="background:#EF9A9A;color:#B71C1C;" onclick="deleteLetter()">⌫ BORRAR</button>
         <button class="btn-sm btn-g" onclick="checkSpell()">✅ VERIFICAR</button>
-
       </div>
       <div class="spell-fbk" id="spfbk"></div>
     </div>`;
@@ -617,7 +643,6 @@ function pressLetter(l){
   const box = document.getElementById('lb'+next);
   box.textContent = l;
   box.classList.add('filled');
-  // mark key used if all instances filled
   const needed = spCurrent.filter(c=>c===l).length;
   const filled = spTyped.filter(c=>c===l).length;
   if(filled >= needed){
@@ -627,7 +652,6 @@ function pressLetter(l){
 }
 
 function deleteLetter(){
-  // find last filled
   let last = -1;
   for(let i=spTyped.length-1;i>=0;i--){if(spTyped[i]!==''){last=i;break;}}
   if(last===-1) return;
@@ -635,7 +659,6 @@ function deleteLetter(){
   spTyped[last]='';
   const box = document.getElementById('lb'+last);
   box.textContent=''; box.classList.remove('filled','correct','wrong');
-  // re-enable key
   const key = document.getElementById('lk_'+l);
   if(key) key.classList.remove('used');
 }
@@ -745,7 +768,6 @@ function initL2(){l2i=0;l2ok=0;document.getElementById('l2s').textContent='0';re
 function renderL2(){
   const s=SENTENCES[l2i];
   document.getElementById('l2p').textContent=`Oración ${l2i+1}/15`;
-  // Mix correct words + the distractor verb (IS or ARE), then shuffle
   const allWords=[...s.words, s.extra];
   const sh=allWords.sort(()=>Math.random()-.5);
   const extraNote=`⚠️ Hay un <b>IS</b> o <b>ARE</b> extra — ¡elige el correcto y deja uno sin usar!`;
@@ -833,7 +855,6 @@ function chkL3(){
     l3ok++;document.getElementById('l3s').textContent=l3ok;
     document.getElementById('tdisp').textContent=correct;
     buildTradCards();
-    // Ocultar pista y nota para que no vean la respuesta al traducir
     const hintEl=document.getElementById('l3hint');
     const noteEl=document.getElementById('l3note');
     if(hintEl) hintEl.style.display='none';
@@ -842,6 +863,7 @@ function chkL3(){
     chips.forEach(c=>c.style.pointerEvents='none');
     document.getElementById('wb3').style.pointerEvents='none';
     document.getElementById('chkbtn3').style.pointerEvents='none';
+    setTimeout(()=>document.getElementById('tbox').scrollIntoView({behavior:'smooth',block:'nearest'}),200);
   } else {
     document.getElementById('dz3').classList.add('no');
     fb.textContent=`❌ Revisa el orden. Correcto: ${correct}`;fb.className='fbk no';
@@ -849,6 +871,7 @@ function chkL3(){
   }
 }
 
+// FIXED: uses .tcard-text wrapper for proper text wrapping
 function buildTradCards(){
   const opt=TRAD_OPTS[l3i];
   const letters=['A','B','C'];
@@ -863,7 +886,7 @@ function buildTradCards(){
     <div class="tcard" onclick="pickTrad(this,${o.ok})" data-ok="${o.ok}">
       <div class="tcard-letter">${letters[i]}</div>
       <div class="tcard-ico">${icons[i]}</div>
-      <div>${esc(o.txt)}</div>
+      <div class="tcard-text">${esc(o.txt)}</div>
     </div>`).join('');
 }
 
@@ -995,16 +1018,20 @@ function showCert(){
 function restart(){
   scores={sp:0,m:0,l2:0,l3:0};
   spIdx=0;spOk=0;l2i=0;l3i=0;l2ok=0;l3ok=0;l3tok=0;
+  removeTouchListeners();
   show('sc-welcome');
 }
 
 // ══════════════════════════════════════════════
-// DRAG & DROP — Desktop + Touch
+// DRAG & DROP — FIXED: removes old touch listeners before adding new ones
 // ══════════════════════════════════════════════
 function setupDrag(bankId,dropId){
   const bank=document.getElementById(bankId);
   const drop=document.getElementById(dropId);
   if(!bank||!drop)return;
+
+  // Remove previous touch listeners to prevent stacking across card renders
+  removeTouchListeners();
 
   [bank,drop].forEach(src=>{
     src.addEventListener('dragstart',e=>{
@@ -1026,30 +1053,36 @@ function setupDrag(bankId,dropId){
     if(dragSrc&&dragSrc.classList.contains('ind')){dragSrc.classList.remove('ind');bank.appendChild(dragSrc);dragSrc=null;}
   });
 
-  // Touch
-  function ts(e){
+  // Touch handlers defined as named functions so they can be cleanly removed
+  function mv(t){
+    if(!tchClone)return;
+    tchClone.style.left=(t.clientX-tchClone.offsetWidth/2)+'px';
+    tchClone.style.top=(t.clientY-tchClone.offsetHeight/2)+'px';
+  }
+
+  _tsFn = function(e){
     const chip=e.target.closest('.wchip');if(!chip)return;
     e.preventDefault();tchEl=chip;
     tchClone=chip.cloneNode(true);
     tchClone.style.cssText=`position:fixed;z-index:9999;opacity:.85;pointer-events:none;transform:scale(1.12) rotate(3deg);width:${chip.offsetWidth}px;`;
     document.body.appendChild(tchClone);mv(e.touches[0]);
-  }
-  function tm(e){if(!tchEl)return;e.preventDefault();mv(e.touches[0]);}
-  function te(e){
+  };
+  _tmFn = function(e){if(!tchEl)return;e.preventDefault();mv(e.touches[0]);};
+  _teFn = function(e){
     if(!tchEl||!tchClone)return;
     tchClone.remove();
     const t=e.changedTouches[0];
     const el=document.elementFromPoint(t.clientX,t.clientY);
-    const td=el?.closest('.dropz');const tb=el?.closest('.wbank');
+    const td=el?.closest('.dropz');
+    const tb=el?.closest('.wbank');
     if(td&&tchEl.closest('.dropz')!==td){tchEl.classList.add('ind');td.appendChild(tchEl);}
     else if(tb&&tchEl.classList.contains('ind')){tchEl.classList.remove('ind');tb.appendChild(tchEl);}
     tchEl=null;tchClone=null;
-  }
-  function mv(t){if(!tchClone)return;tchClone.style.left=(t.clientX-tchClone.offsetWidth/2)+'px';tchClone.style.top=(t.clientY-tchClone.offsetHeight/2)+'px';}
+  };
 
-  document.addEventListener('touchstart',ts,{passive:false});
-  document.addEventListener('touchmove',tm,{passive:false});
-  document.addEventListener('touchend',te);
+  document.addEventListener('touchstart', _tsFn, {passive:false});
+  document.addEventListener('touchmove',  _tmFn, {passive:false});
+  document.addEventListener('touchend',   _teFn);
 }
 </script>
 </body>
